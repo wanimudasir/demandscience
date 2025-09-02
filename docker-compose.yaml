@@ -4,15 +4,13 @@ services:
   demandscience:
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     ports:
       - "8080:8080"
     volumes:
-      - .:/app
-      - ./processed_files:/app/processed_files
+      - ./processed_files:/root/processed_files
     environment:
-      - GIN_MODE=debug
-      - LOG_LEVEL=debug
-    working_dir: /app
-    command: go run cmd/main.go
+      - GIN_MODE=release
+      - SERVER_PORT=8080
+      - STORAGE_DIR=/root/processed_files
     restart: unless-stopped

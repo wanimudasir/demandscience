@@ -1,3 +1,0 @@
-name,email,has_email
-John,john@test.com,true
-Jane,invalid-email,false

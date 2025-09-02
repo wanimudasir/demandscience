@@ -5,16 +5,32 @@ import (
 	"demandscience/internal/services"
 	"log"
 	"net/http"
+	"os"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
+var maxFileSize int64
+
 func main() {
+	err := godotenv.Load()
+	port := os.Getenv("PORT")
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+	maxFileSizeStr := os.Getenv("MAX_FILE_SIZE_MB")
+	maxFileSize, strErr := strconv.Atoi(maxFileSizeStr)
+	if strErr != nil {
+		log.Fatal("Error loading .env file")
+	}
+
 	csvService := services.DSCsvProcessingService()
 	csvHandler := handlers.DSCsvProcessorHandler(csvService)
 
 	router := gin.Default()
-	router.MaxMultipartMemory = 32 << 20
+	router.MaxMultipartMemory = int64(maxFileSize) << 20
 
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
@@ -29,8 +45,8 @@ func main() {
 		api.GET("/download/:id", csvHandler.DownloadFile)
 	}
 
-	log.Println("Starting Go backend server on :8080")
-	if err := router.Run(":8080"); err != nil {
+	log.Println("Starting Go backend server on :", port)
+	if err := router.Run(":" + port); err != nil {
 		log.Fatal("Failed to start server:", err)
 	}
 

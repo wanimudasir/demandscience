@@ -1,0 +1,5 @@
+﻿S.No,Name,Email,Phone,has_email
+1,Mudasir Wani,wanimudasir@gmail.com,7006123456,true
+2,John Doe,email@gmail.com,7006987654,true
+3,Paul Smith,something@gmail.com,7006852741,true
+4,David Paul,,7006456321,false
