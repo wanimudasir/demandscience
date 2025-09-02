@@ -20,17 +20,17 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-	maxFileSizeStr := os.Getenv("MAX_FILE_SIZE_MB")
-	maxFileSize, strErr := strconv.Atoi(maxFileSizeStr)
+	maxFileSizeStr := os.Getenv("MAX_FILE_SIZE")
+	maxFileSize, strErr := strconv.ParseInt(maxFileSizeStr, 10, 64)
 	if strErr != nil {
-		log.Fatal("Error loading .env file")
+		log.Fatal("Error loading max file size .env variable")
 	}
 
 	csvService := services.DSCsvProcessingService()
 	csvHandler := handlers.DSCsvProcessorHandler(csvService)
 
 	router := gin.Default()
-	router.MaxMultipartMemory = int64(maxFileSize) << 20
+	router.MaxMultipartMemory = maxFileSize
 
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
