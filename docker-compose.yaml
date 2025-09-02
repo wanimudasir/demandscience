@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  demandscience:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+      - ./processed_files:/app/processed_files
+    environment:
+      - GIN_MODE=debug
+      - LOG_LEVEL=debug
+    working_dir: /app
+    command: go run cmd/main.go
+    restart: unless-stopped
