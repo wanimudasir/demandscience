@@ -1,0 +1,9 @@
+name,email,phone,has_email
+John Doe,john.doe@example.com,123456789,true
+Jane Smith,invalid-email-format,987654321,false
+Bob Wilson,bob@company.org,555123456,true
+Mary Johnson,,999888777,false
+Alice Brown,alice.brown@email.net,111222333,true
+Tom Davis,not-an-email-address,444555666,false
+Sarah Lee,sarah@domain,777888999,false
+Mike Johnson,mike@domain.co.uk,123987456,true

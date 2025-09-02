@@ -88,6 +88,7 @@ func (handler *CsvProcessorHandler) DownloadFile(ctx *gin.Context) {
 
 		// This code below is if we want directly download the file then comment the above http.StatusOK code and
 		// uncomment the below code.
+		//*******************************************************************************************
 		// filename := job.OriginalFileName + "_processed.csv"
 		// c.Header("Content-Disposition", "attachment; filename="+filename)
 		// c.Header("Content-Type", "application/octet-stream")
